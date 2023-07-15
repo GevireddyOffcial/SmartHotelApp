@@ -11,6 +11,7 @@ pipeline{
     }
     
     stages{
+// This stage will be inlcude in pipeline script as there we dont clone from git
 //       stage('Git Clone'){
 //           steps{
 //               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/GevireddyOffcial/SmartHotelApp.git']])
