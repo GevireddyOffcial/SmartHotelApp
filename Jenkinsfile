@@ -1,22 +1,36 @@
-pipeline {
-  environment {
-    imagename = "mydotnetapp"
-    dockerImage = ''
-  }
-  agent any
-  stages {
-    stage('Cloning Git') {
-      steps {
-        git([url: 'https://github.com/GevireddyOffcial/SmartHotelApp.git', branch: 'main', credentialsId: 'GevireddyOfficial'])
- 
-      }
+pipeline{
+    agent any
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
+        timestamps()
     }
-    stage('Building image') {
+    environment{
+        
+        registry = "gevireddyofficial/smarthotelapp"
+        registryCredential = 'DockerHub'        
+    }
+    
+    stages{
+       stage('Git Clone'){
+           steps{
+               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/GevireddyOffcial/SmartHotelApp.git']])
+           }
+       }
+       stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build imagename
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
-  }
+       stage('Deploy Image') {
+      steps{
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+   }
 }
