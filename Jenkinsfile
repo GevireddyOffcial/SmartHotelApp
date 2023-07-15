@@ -1,14 +1,13 @@
 pipeline {
   environment {
-    imagename = "kevalnagda/flaskapp"
-    registryCredential = 'kevalnagda'
+    imagename = "mydotnetapp"
     dockerImage = ''
   }
   agent any
   stages {
     stage('Cloning Git') {
       steps {
-        git([url: 'https://github.com/kevalnagda/movieapp.git', branch: 'main', credentialsId: 'kevalnagda'])
+        git([url: 'https://github.com/GevireddyOffcial/SmartHotelApp.git', branch: 'main', credentialsId: 'GevireddyOfficial'])
  
       }
     }
