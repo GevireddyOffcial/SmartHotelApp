@@ -11,11 +11,11 @@ pipeline{
     }
     
     stages{
-       stage('Git Clone'){
-           steps{
-               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/GevireddyOffcial/SmartHotelApp.git']])
-           }
-       }
+//       stage('Git Clone'){
+//           steps{
+//               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/GevireddyOffcial/SmartHotelApp.git']])
+//           }
+//       }
        stage('Building image') {
       steps{
         script {
