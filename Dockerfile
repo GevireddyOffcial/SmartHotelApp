@@ -15,8 +15,8 @@ RUN dotnet build "SmartHotelApp.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "SmartHotelApp.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
+#FROM base AS final
+FROM scratch
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "SmartHotelApp.dll"]
